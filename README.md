@@ -1,5 +1,3 @@
-# 822LAB 服务器端 接口文档
-
 url: http://
 
 port: 8080
@@ -14,19 +12,137 @@ port: 8080
 - Response:
   - 成功：{
     result: 1,
-    message: [{type: '图像平滑', subType: [{name:'高斯平滑', code: 'GaussBlur', id:},{name: '', code: '', id:},...]}, {type: '', subType: [ {name: '', code: '', id:},...]}]
+    message: [{type: '', subType: [{name:'', code: '', params:[]},{name: '', code: '', id:},...]}, {type: '', subType: [ {name: '', code: '', id:},...]}]
   }
   - 失败：{
     result: 0,
     message: ''
   }
 
+**message详情**
+```JAVASCRIPT
+[{
+  type: '图像平滑',
+  subType: [
+  {
+      name: '高斯平滑',
+      code: '101',
+      params: [
+      {
+          type:'input'(PS:必须奇数),
+          name:'卷积核宽'
+      },
+      {
+          type:'input'(PS:必须奇数),
+          name:'卷积核高'
+      },
+      {
+          type:'input',
+          name:'水平方向标准差'
+      },
+      {
+          type:'input',
+          name:'垂直方向标准差'
+      },
+      {
+          type:'choice',
+          name:'边界扩充方式'
+          value:['边界复制','常数扩充','反射扩充','边界为中心反射扩充','平铺扩充']
+      }]
+  },
+  {
+     name: '均值平滑',
+     code: '102'
+     params: [
+     {
+         type:'input',
+         name:'算子宽'
+     },
+     {
+         type:'input',
+         name:'算子高'
+     },
+     {
+         type:'input',
+         name:'锚点'(PS：检验坐标在矩阵范围内)
+     },
+     {
+         type:'choice',
+         name:'边界扩充方式',
+         value:['边界复制','常数扩充','反射扩充','边界为中心反射扩充','平铺扩充']
+     }
+     ]
+  },
+  {
+      name: '中值平滑',
+      code: '103',
+      params: [
+      {
+          type:'input',
+          name:'窗口大小'(PS:大于1)
+      }
+      ]
+  },
+  {
+      name: '双边滤波',
+      code: '104',
+      params: [
+      {
+          type:'input',
+          name:'权重模板宽',
+      },
+      {
+          type:'input',
+          name:'sigma color'
+      },
+      {
+          type:'input',
+          name:'sigma space'
+      }
+      ]
+  },
+  {
+      name: '联合双边滤波',
+      code: '105',
+      params: [
+      {
+          type:'input',(PS:奇数)
+          name:'权重模板宽'
+      },
+      {
+          type:'input',(PS:奇数)
+          name:'权重模板高'
+      },
+      {
+          type:'input',
+          name:'空间距离权重模板标准差'
+      },
+      {
+          type:'input',
+              name:'相似性权重模板标准差'
+      },
+      {
+          type:'choice',
+          name:'边界扩充方式',
+          value:['边界复制','常数扩充','反射扩充','边界为中心反射扩充','平铺扩充']
+      }]
+  }]
+},
+{
+    type:'边缘检测',
+    subType:[{}]
+},
+{
+    type:'轮廓提取',
+    subType:[{}]
+}]
+```
 #### 请求图像处理
 - URL： /imgproc/lab/
 - Method: POST
 - Request:
   - {
-    operation: ['GaussBlur','',..],   // 字符串数组, 传操作的code
+    operation: ['','',..],   // 字符串数组, 传操作的code
     image: {name: '', content: ''},   // 如果是新图，名称为「用户id-年月日时分秒.jpg/.png」，content为图片，如果是在上次操作基础上继续，则name为上次图片的name，content为空，暂时不做用户模块，只有我，id记为1就好
   }
 - Response：
@@ -40,5 +156,7 @@ port: 8080
   }
 
 NOTE：新图的名称是由客户端取的，处理后的图片名称由服务器端取，每次处理后服务器端会返回给客户端，客户端下一次请求则带着此名称
+
+**请求示例**
 
 ### 学习
