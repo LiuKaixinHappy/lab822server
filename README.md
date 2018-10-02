@@ -180,7 +180,7 @@ NOTE：新图的名称是由客户端取的，处理后的图片名称由服务�
 // 第一次
 request:
 {
-    operation: [{
+    operations: [{
         code:'101',
         param:[{
             pName: (上述参数的pName),
@@ -203,7 +203,7 @@ response:
 // 基于上一次操作
 request:
 {
-    operation: [{
+    operations: [{
         code:'101',
         param:[{
             pName: (上述参数的pName),
