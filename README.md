@@ -1,10 +1,16 @@
-url: http://
+# 822l LAB服务器端
 
-port: 8080
+
 
 ## 图像处理
 
-### 实验
+### 交互demo
+<video id="video" controls="" preload="auto" poster="/imgs/TWSchool-3.png" style="width:100%">
+      <source id="mp4" src="ue_demo.mp4" type="video/mp4">
+      <p>Your user agent does not support the HTML5 Video element.</p>
+</video>
+
+### 接口
 
 #### 获取操作列表
 - URL： /imgproc/lab/
@@ -225,4 +231,3 @@ response:
 }
 ```
 
-### 学习
