@@ -24,9 +24,10 @@ def img_process_lab():
         return jsonify({'result': 1, 'message': messages})
     else:
         request_body = json.loads(request.get_data())
-        operations = request_body['operations']
-        o_code = operations['code']
-        o_params = operations['params']
+        operation = request_body['operations'][0]
+
+        o_code = operation['code']
+        o_params = operation['params']
         image = request_body['image']
         message = manager.process(o_code, o_params, image)
         if message is None:

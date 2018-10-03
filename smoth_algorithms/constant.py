@@ -1,1 +1,1 @@
-ROOT_PATH = '../static'
+ROOT_PATH = './static'

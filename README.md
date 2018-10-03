@@ -184,7 +184,7 @@ request:
         code:'101',
         param:[{
             pName: (上述参数的pName),
-            pValue: 值(边界扩充方式返回汉字)
+            pValue: 值(边界扩充方式返回索引，0开始)
         }]
     }],
     image: {
