@@ -1,9 +1,9 @@
 import base64
 import os
 
-from algorithms.constant import ROOT_PATH
-from algorithms.handler import Handler
-from algorithms.proc_code_enum import ProcCodeEnum
+from smoth_algorithms.constant import ROOT_PATH
+from smoth_algorithms.handler import Handler
+from smoth_algorithms.proc_code_enum import ProcCodeEnum
 
 
 class JointBFBlurHandler(Handler):

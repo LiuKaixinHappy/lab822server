@@ -1,4 +1,4 @@
-from algorithms.handler import Handler
+from smoth_algorithms.handler import Handler
 
 
 class NoProcHandler(Handler):

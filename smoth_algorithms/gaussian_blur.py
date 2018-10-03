@@ -4,10 +4,10 @@ import cv2
 import numpy as np
 from PIL import Image
 from cStringIO import StringIO
-from algorithms.border_type_enum import get_border_type
-from algorithms.constant import ROOT_PATH
-from algorithms.handler import Handler
-from algorithms.proc_code_enum import ProcCodeEnum
+from smoth_algorithms.border_type_enum import get_border_type
+from smoth_algorithms.constant import ROOT_PATH
+from smoth_algorithms.handler import Handler
+from smoth_algorithms.proc_code_enum import ProcCodeEnum
 
 
 def gaussian_blur(img_name, k_size_w, k_size_h, sigma_x, sigma_y, border_type):

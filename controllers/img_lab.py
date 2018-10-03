@@ -1,5 +1,5 @@
 # coding=utf-8
-from algorithms import manager
+from smoth_algorithms import manager
 from app import app
 from flask import request, jsonify
 from models.img_type import ImgType
