@@ -160,14 +160,14 @@ port: 8080
 - Method: POST
 - Request:
   - {
-    operation: ['','',..],   // 字符串数组, 传操作的code
+    operation: '',   // 字符串, 传操作的code
     image: {name: '', content: ''},   // 如果是新图，名称为「用户id-年月日时分秒.jpg/.png」，content为图片，如果是在上次操作基础上继续，则name为上次图片的name，content为空，暂时不做用户模块，只有我，id记为1就好
   }
 
 - Response：
   - 成功：{
     result:1,
-    message:{imgUrl:'', imgName:''}
+    message:{imgContent:'', imgName:''}
   }
   - 失败：{
     result:0,
@@ -184,12 +184,12 @@ request:
         code:'101',
         param:[{
             pName: (上述参数的pName),
-            pValue: 值
+            pValue: 值(边界扩充方式返回汉字)
         }]
     }],
     image: {
         name: 'userid-20181002132257.jpg',
-        content: 'xxx'
+        content: 'base64'
     }
 }
 response:
@@ -205,7 +205,7 @@ request:
 {
     operations: [{
         code:'101',
-        param:[{
+        params:[{
             pName: (上述参数的pName),
             pValue: 值
         }]
@@ -219,7 +219,7 @@ response:
 {
     result:1,
     message:{
-        imgUrl:'http://xxxx/xxx/xxx/userid-20181002132257-101-101.jpg',
+        imgContent:'base64',
         imgName:'userid-20181002132257-101-101.jpg'
     }
 }

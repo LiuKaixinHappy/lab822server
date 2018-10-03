@@ -1,5 +1,3 @@
-import os
-
 from flask import Flask
 from flask_mongoengine import MongoEngine
 from flask_swagger_ui import get_swaggerui_blueprint
@@ -13,7 +11,7 @@ app.config['MONGODB_SETTINGS'] = {
 db = MongoEngine(app)
 
 SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
-API_URL = 'http://39.106.45.97:8888/swagger.json'  # Our API url (can of course be a local resource)
+API_URL = 'http://39.106.45.97:8888/swagger.yaml'  # Our API url (can of course be a local resource)
 
 # Call factory function to create our blueprint
 swaggerui_blueprint = get_swaggerui_blueprint(

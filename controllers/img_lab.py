@@ -1,18 +1,15 @@
+# coding=utf-8
+from algorithms import manager
 from app import app
-from flask import request, jsonify, url_for, render_template
+from flask import request, jsonify
 from models.img_type import ImgType
 from models.img_operations import ImgOperation
-from flask_swagger import swagger
+import json
 
 
 @app.route('/')
 def a():
     return "Hello World"
-
-
-@app.route('/static/swagger.yaml')
-def swagger():
-    return render_template('../static/swagger.yaml')
 
 
 @app.route('/imgproc/lab', methods=['GET', 'POST'])
@@ -26,4 +23,13 @@ def img_process_lab():
 
         return jsonify({'result': 1, 'message': messages})
     else:
-        operations = request.args.get('operations')
+        request_body = json.loads(request.get_data())
+        operations = request_body['operations']
+        o_code = operations['code']
+        o_params = operations['params']
+        image = request_body['image']
+        message = manager.process(o_code, o_params, image)
+        if message is None:
+            return jsonify({'result': 0, 'message': '未找到图像处理方法'})
+
+        return jsonify({'result': 1, 'message': message})
