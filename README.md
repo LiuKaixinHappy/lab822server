@@ -132,12 +132,12 @@
       {
           type:'input',
           name:'空间距离权重模板标准差',
-          pName: 'sigma_g'
+          pName: 'sigmaG'
       },
       {
           type:'input',
           name:'相似性权重模板标准差',
-          pName: 'sigma_d'
+          pName: 'sigmaD'
       },
       {
           type:'choice',
