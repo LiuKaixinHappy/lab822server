@@ -94,19 +94,25 @@
       params: [
       {
           type:'input',
-          name:'权重模板宽',
-          pName: 'kSizeW'
+          name:'滤波像素邻域直径',
+          pName: 'd'
       },
       {
           type:'input',
           name:'sigma color',
-          pName: 'sigma color'
+          pName: 'sigmaColor'
       },
       {
           type:'input',
           name:'sigma space',
-          pName: 'sigma space'
-      }
+          pName: 'sigmaSpace'
+      },
+     {
+         type:'choice',
+         name:'边界扩充方式',
+         value:['边界复制','常数扩充','反射扩充','边界为中心反射扩充','平铺扩充']
+         pName: 'borderType'
+     }
       ]
   },
   {
