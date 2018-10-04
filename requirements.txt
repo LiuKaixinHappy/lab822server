@@ -1,0 +1,6 @@
+pillow
+py-opencv
+flask-swagger-ui
+flask
+
+
