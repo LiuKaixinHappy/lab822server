@@ -11,4 +11,4 @@ class JointBFBlurHandler(Handler):
         if code == ProcCodeEnum.JOINT_B_F_BLUR:
             pass
         else:
-            self._to_next.handle(code, params, image)
+            return self._to_next.handle(code, params, image)

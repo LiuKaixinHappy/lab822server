@@ -52,4 +52,4 @@ class GaussianBlurHandler(Handler):
                                  float(params_dict['sigmaY']),
                                  int(params_dict['borderType']))
         else:
-            self._to_next.handle(code, params, image)
+            return self._to_next.handle(code, params, image)

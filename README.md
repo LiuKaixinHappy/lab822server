@@ -70,11 +70,6 @@
          pName: 'kSizeH'
      },
      {
-         type:'input',
-         name:'锚点'(PS：检验坐标在矩阵范围内),
-         pName: 'anchor'
-     },
-     {
          type:'choice',
          name:'边界扩充方式',
          value:['边界复制','常数扩充','反射扩充','边界为中心反射扩充','平铺扩充']

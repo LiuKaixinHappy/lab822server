@@ -11,4 +11,4 @@ class MediaBlurHandler(Handler):
         if code == ProcCodeEnum.MEDIA_BLUR:
             pass
         else:
-            self._to_next.handle(code, params, image)
+            return self._to_next.handle(code, params, image)
