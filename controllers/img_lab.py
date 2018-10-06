@@ -8,8 +8,11 @@ import json
 
 
 @app.route('/')
-def a():
-    return "Hello World"
+def index():
+    app.logger.debug('this is debug message')
+    app.logger.error('this is error message')
+    app.logger.critical('this is critical message')
+    return 'ok'
 
 
 @app.route('/imgproc/lab', methods=['GET', 'POST'])
