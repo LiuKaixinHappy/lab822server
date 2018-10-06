@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, make_response
 from flask_mongoengine import MongoEngine
 from flask_swagger_ui import get_swaggerui_blueprint
 
@@ -9,6 +9,16 @@ app.config['MONGODB_SETTINGS'] = {
     'port': 27017
 }
 db = MongoEngine(app)
+
+
+@app.after_request
+def af_request(resp):
+    resp = make_response(resp)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Methods'] = 'GET,POST'
+    resp.headers['Access-Control-Allow-Headers'] = 'x-requested-with,content-type'
+    return resp
+
 
 SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
 API_URL = 'http://39.106.45.97:8888/swagger.yaml'  # Our API url (can of course be a local resource)
