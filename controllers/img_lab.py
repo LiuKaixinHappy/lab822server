@@ -9,9 +9,6 @@ import json
 
 @app.route('/')
 def index():
-    app.logger.debug('this is debug message')
-    app.logger.error('this is error message')
-    app.logger.critical('this is critical message')
     return 'ok'
 
 
