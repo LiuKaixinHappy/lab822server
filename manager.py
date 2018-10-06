@@ -1,9 +1,9 @@
-from smoth_algorithms.no_process import NoProcHandler
-from smoth_algorithms.b_f_blur import BFBlurHandler
-from smoth_algorithms.gaussian_blur import GaussianBlurHandler
-from smoth_algorithms.joint_b_f_blur import JointBFBlurHandler
-from smoth_algorithms.mean_blur import MeanBlurHandler
-from smoth_algorithms.media_blur import MediaBlurHandler
+from algorithms.no_process import NoProcHandler
+from algorithms.b_f_blur import BFBlurHandler
+from algorithms.gaussian_blur import GaussianBlurHandler
+from algorithms.joint_b_f_blur import JointBFBlurHandler
+from algorithms.mean_blur import MeanBlurHandler
+from algorithms.media_blur import MediaBlurHandler
 
 
 def process(code, params, image):
@@ -21,3 +21,4 @@ def process(code, params, image):
     joint_b_f_blur.to_next(no_proc_handler)
 
     return gaussian_blur.handle(code, params, image)
+

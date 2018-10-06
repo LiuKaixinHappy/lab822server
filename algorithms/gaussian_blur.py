@@ -1,12 +1,14 @@
 import base64
 import os
+
 import cv2
 import numpy as np
 from PIL import Image
-from smoth_algorithms.border_type_enum import get_border_type
-from smoth_algorithms.constant import ROOT_PATH
-from smoth_algorithms.handler import Handler
-from smoth_algorithms.proc_code_enum import ProcCodeEnum
+from algorithms.border_type_enum import get_border_type
+from algorithms.constant import ROOT_PATH
+from algorithms.handler import Handler
+from util import get_unique_file_name
+from algorithms.proc_code_enum import ProcCodeEnum
 
 
 def gaussian_blur(img_name, k_size_w, k_size_h, sigma_x, sigma_y, border_type):
@@ -29,27 +31,24 @@ def gaussian_blur(img_name, k_size_w, k_size_h, sigma_x, sigma_y, border_type):
     # print processed_img_name
     processed_img.save('{}/{}'.format(ROOT_PATH, processed_img_name))
 
-    with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as imageFile:
-        base64_data = base64.b64encode(imageFile.read())
-    return dict({'imgContent': base64_data, 'imgName': processed_img_name})
+    with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as image_file:
+        base64_data = base64.b64encode(image_file.read())
+    return dict({'image': base64_data})
 
 
 class GaussianBlurHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.GAUSSIAN_BLUR:
-            if len(image['content']) > 0:
-                img = base64.b64decode(image['content'])
-                img_file = open('{}/{}'.format(ROOT_PATH, image['name']), 'wb')
+            img = base64.b64decode(image)
+            img_name = get_unique_file_name()
+            with open('{}/{}'.format(ROOT_PATH, img_name), 'wb') as img_file:
                 img_file.write(img)
-                img_file.close()
-            params_dict = dict()
-            for each in params:
-                params_dict[each['pName']] = each['pValue']
-            return gaussian_blur(image['name'],
-                                 int(params_dict['kSizeW']),
-                                 int(params_dict['kSizeH']),
-                                 float(params_dict['sigmaX']),
-                                 float(params_dict['sigmaY']),
-                                 int(params_dict['borderType']))
+
+            return gaussian_blur(img_name,
+                                 int(params['kSizeW']),
+                                 int(params['kSizeH']),
+                                 float(params['sigmaX']),
+                                 float(params['sigmaY']),
+                                 int(params['borderType']))
         else:
             return self._to_next.handle(code, params, image)

@@ -5,9 +5,10 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from smoth_algorithms.constant import ROOT_PATH
-from smoth_algorithms.handler import Handler
-from smoth_algorithms.proc_code_enum import ProcCodeEnum
+from algorithms.constant import ROOT_PATH
+from algorithms.handler import Handler
+from util import get_unique_file_name
+from algorithms.proc_code_enum import ProcCodeEnum
 
 
 def median_blur(img_name, k_size):
@@ -24,20 +25,17 @@ def median_blur(img_name, k_size):
 
     with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as imageFile:
         base64_data = base64.b64encode(imageFile.read())
-    return dict({'imgContent': base64_data, 'imgName': processed_img_name})
+    return dict({'image': base64_data})
 
 
 class MediaBlurHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.MEDIA_BLUR:
-            if len(image['content']) > 0:
-                img = base64.b64decode(image['content'])
-                img_file = open('{}/{}'.format(ROOT_PATH, image['name']), 'wb')
+            img = base64.b64decode(image)
+            img_name = get_unique_file_name()
+            with open('{}/{}'.format(ROOT_PATH, img_name), 'wb') as img_file:
                 img_file.write(img)
-                img_file.close()
-            params_dict = dict()
-            for each in params:
-                params_dict[each['pName']] = each['pValue']
-            return median_blur(image['name'], int(params_dict['kSize']))
+
+            return median_blur(img_name, int(params['kSize']))
         else:
             return self._to_next.handle(code, params, image)

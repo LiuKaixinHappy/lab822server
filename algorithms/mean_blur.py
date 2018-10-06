@@ -1,14 +1,16 @@
 import base64
+
 import cv2
 import os
 
 import numpy as np
 from PIL import Image
 
-from smoth_algorithms.border_type_enum import get_border_type
-from smoth_algorithms.constant import ROOT_PATH
-from smoth_algorithms.handler import Handler
-from smoth_algorithms.proc_code_enum import ProcCodeEnum
+from algorithms.border_type_enum import get_border_type
+from algorithms.constant import ROOT_PATH
+from algorithms.handler import Handler
+from util import get_unique_file_name
+from algorithms.proc_code_enum import ProcCodeEnum
 
 
 def mean_blur(img_name, k_size_w, k_size_h, border_type):
@@ -27,23 +29,20 @@ def mean_blur(img_name, k_size_w, k_size_h, border_type):
 
     with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as imageFile:
         base64_data = base64.b64encode(imageFile.read())
-    return dict({'imgContent': base64_data, 'imgName': processed_img_name})
+    return dict({'image': base64_data})
 
 
 class MeanBlurHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.MEAN_BLUR:
-            if len(image['content']) > 0:
-                img = base64.b64decode(image['content'])
-                img_file = open('{}/{}'.format(ROOT_PATH, image['name']), 'wb')
+            img = base64.b64decode(image)
+            img_name = get_unique_file_name()
+            with open('{}/{}'.format(ROOT_PATH, img_name), 'wb') as img_file:
                 img_file.write(img)
-                img_file.close()
-            params_dict = dict()
-            for each in params:
-                params_dict[each['pName']] = each['pValue']
-            return mean_blur(image['name'],
-                             int(params_dict['kSizeW']),
-                             int(params_dict['kSizeH']),
-                             int(params_dict['borderType']))
+
+            return mean_blur(img_name,
+                             int(params['kSizeW']),
+                             int(params['kSizeH']),
+                             int(params['borderType']))
         else:
             return self._to_next.handle(code, params, image)
