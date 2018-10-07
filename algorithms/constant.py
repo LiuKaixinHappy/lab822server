@@ -1,1 +1,1 @@
-ROOT_PATH = '../tmpdata'
+ROOT_PATH = './static'
