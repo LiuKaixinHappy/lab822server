@@ -1,1 +1,1 @@
-ROOT_PATH = '/root/data/822lab'
+ROOT_PATH = '../tmpdata'
