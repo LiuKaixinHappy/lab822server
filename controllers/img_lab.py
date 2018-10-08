@@ -29,7 +29,6 @@ def img_process_lab():
         o_code = operation['code']
         o_params = operation['params']
         image = request_body['image']
-        image = image.split('base64,')[1]
         message = manager.process(o_code, o_params, image)
         if message is None:
             return jsonify({'result': 0, 'message': '未找到图像处理方法'})
