@@ -1,4 +1,4 @@
-from algorithms.handler import Handler
+from algorithms_base.handler import Handler
 
 
 class NoProcHandler(Handler):

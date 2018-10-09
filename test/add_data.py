@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from mongoengine import *
 
-
 connect('lab822')
 
 
@@ -24,7 +23,7 @@ class ImgOperation(Document):
     params = ListField(EmbeddedDocumentField('ImgParam'))
 
 
-def insert():
+def insert_old():
     type1 = ImgType(name='图像平滑').save()
     type2 = ImgType(name='边缘检测').save()
     type3 = ImgType(name='轮廓提取').save()
@@ -57,6 +56,20 @@ def insert():
                               params=[param10, param11, param12, param5]).save()
     operation5 = ImgOperation(name='联合双边滤波', code='105', type=[type1],
                               params=[param8, param13, param14, param15, param5]).save()
+
+
+def insert():
+    type4 = ImgType(name='阈值分割').save()
+
+    param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal').save()
+    param17 = ImgParam(type='input', name='分割类型',
+                       value=['THRESH_BINARY', 'THRESH_BINARY_INV', 'THRESH_TRUNC', 'THRESH_TOZERO',
+                              'THRESH_TOZERO_INV'], limit='int >-1 <256', pName='threshType').save()
+    param18 = ImgParam(type='input', name='自动计算阈值算法',
+                       value=['Otsu', 'Triangle', '熵算法', '直方图'], limit='', pName='findThreshType').save()
+
+    operation5 = ImgOperation(name='自动分割', code='201', type=[type4],
+                              params=[param16, param17, param18]).save()
 
 
 insert()

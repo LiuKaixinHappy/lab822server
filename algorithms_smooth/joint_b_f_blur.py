@@ -7,11 +7,11 @@ import os
 import numpy as np
 from PIL import Image
 
-from algorithms.border_type_enum import get_border_type
-from algorithms.constant import ROOT_PATH
-from algorithms.handler import Handler
+from algorithms_base.handler import Handler
+from myenums.border_type_enum import get_border_type
+from algorithms_base.constant import ROOT_PATH
 from util import get_unique_file_name
-from algorithms.proc_code_enum import ProcCodeEnum
+from myenums.proc_code_enum import ProcCodeEnum
 
 
 def get_closeness_weight(sigma_g, k_size_w, k_size_h):

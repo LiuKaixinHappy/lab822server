@@ -1,5 +1,5 @@
 # coding=utf-8
-import manager
+from algorithms_smooth import smooth_manager
 from app import app
 from flask import request, jsonify
 from models.img_type import ImgType
@@ -29,7 +29,8 @@ def img_process_lab():
         o_code = operation['code']
         o_params = operation['params']
         image = request_body['image']
-        message = manager.process(o_code, o_params, image)
+
+        message = smooth_manager.process(o_code, o_params, image)
         if message is None:
             return jsonify({'result': 0, 'message': '未找到图像处理方法'})
 

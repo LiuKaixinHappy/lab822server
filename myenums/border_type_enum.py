@@ -2,6 +2,7 @@
 import cv2
 
 
+# NOTE:顺序不可变
 def get_border_type(index):
     border_types = [cv2.BORDER_REPLICATE,
                     cv2.BORDER_CONSTANT,
