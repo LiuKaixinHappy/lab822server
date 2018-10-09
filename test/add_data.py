@@ -36,15 +36,15 @@ def insert():
     param5 = ImgParam(type='select', name='边界扩充方式',
                       value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
                       limit='', pName='borderType').save()
-    param6 = ImgParam(type='input', name='算子宽', value=[], limit='', pName='kSizeW').save()
-    param7 = ImgParam(type='input', name='算子高', value=[], limit='', pName='kSizeH').save()
-    param9 = ImgParam(type='input', name='窗口大小', value=[], limit='int', pName='kSize').save()
+    param6 = ImgParam(type='input', name='算子宽', value=[], limit='odd', pName='kSizeW').save()
+    param7 = ImgParam(type='input', name='算子高', value=[], limit='odd', pName='kSizeH').save()
+    param9 = ImgParam(type='input', name='窗口大小', value=[], limit='odd >1', pName='kSize').save()
     param10 = ImgParam(type='input', name='滤波像素邻域直径', value=[], limit='', pName='d').save()
     param11 = ImgParam(type='input', name='sigma color', value=[], limit='', pName='sigmaColor').save()
     param12 = ImgParam(type='input', name='sigma space', value=[], limit='', pName='sigmaSpace').save()
-    param8 = ImgParam(type='input', name='权重模板宽', value=[], limit='', pName='kSizeW').save()
-    param13 = ImgParam(type='input', name='权重模板高', value=[], limit='', pName='kSizeH').save()
-    param14 = ImgParam(type='input', name='空间距离权重模板标准差', value=[], limit='', pName='sigmaG').save()
+    param8 = ImgParam(type='input', name='权重模板宽', value=[], limit='odd', pName='kSizeW').save()
+    param13 = ImgParam(type='input', name='权重模板高', value=[], limit='odd', pName='kSizeH').save()
+    param14 = ImgParam(type='input', name='空间距离权重模板标准差', value=[], limit='int <5', pName='sigmaG').save()
     param15 = ImgParam(type='input', name='相似性权重模板标准差', value=[], limit='', pName='sigmaD').save()
 
     operation1 = ImgOperation(name='高斯平滑', code='101', type=[type1],
