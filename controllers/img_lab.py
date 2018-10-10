@@ -41,27 +41,42 @@ def img_process_lab():
         o_code = operation['code']
         o_params = operation['params']
         image_base64 = request_body['image']
+        try:
+            img_name = base64_to_img_file(image_base64)
+        except IOError as e:
+            app.logger.debug(e)
+            return jsonify({'result': 0, 'message': '哎呀～图片base64编码转化失败，请再试一次或换张图'})
 
-        img_name = base64_to_img_file(image_base64)
+        img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
+        if img_arr is None:
+            return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
 
         try:
-            img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
-
             if int(o_code) < 200:
                 processed_img_arr = smooth_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 300:
                 processed_img_arr = sigmentation_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 400:
                 processed_img_arr = contour_manager.process(o_code, o_params, img_arr)
-
-            processed_img_name = img_arr_to_img_file(img_name, o_code, processed_img_arr)
-
-            base64_data = img_file_to_base64(processed_img_name)
-
-            return jsonify({'result': 1, 'message': dict({'image': base64_data})})
+            else:
+                return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
-            print e
-            return jsonify({'result': 0, 'message': e.message})
+            app.logger.debug(e)
+            return jsonify({'result': 0, 'message': '哎呀～图像处理失败，请联系管理员'})
+
+        try:
+            processed_img_name = img_arr_to_img_file(img_name, o_code, processed_img_arr)
+        except IOError as e:
+            app.logger.debug(e)
+            return jsonify({'result': 0, 'message': '哎呀～处理后图片保存失败，请再试一次'})
+
+        try:
+            base64_data = img_file_to_base64(processed_img_name)
+        except Exception as e:
+            app.logger.debug(e)
+            return jsonify({'result': 0, 'message': '哎呀～图片转换传输失败，请再试一次'})
+
+        return jsonify({'result': 1, 'message': dict({'image': base64_data})})
 
 
 def img_file_to_base64(processed_img_name):
