@@ -74,7 +74,7 @@ def img_process_lab():
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
             app.logger.debug(e)
-            logging.exception(e)
+            app.logger.exception(e)
             return jsonify({'result': 0, 'message': '处理失败:{}'.format(e.message)})
 
         try:
