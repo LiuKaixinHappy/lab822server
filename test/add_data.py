@@ -62,16 +62,17 @@ def insert():
     type4 = ImgType(name='阈值分割').save()
 
     param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal').save()
-    param17 = ImgParam(type='input', name='分割类型',
+    param17 = ImgParam(type='select', name='分割类型',
                        value=['THRESH_BINARY', 'THRESH_BINARY_INV', 'THRESH_TRUNC', 'THRESH_TOZERO',
-                              'THRESH_TOZERO_INV'], limit='int >-1 <256', pName='threshType').save()
-    param18 = ImgParam(type='input', name='自动计算阈值算法',
+                              'THRESH_TOZERO_INV'], limit='', pName='threshType').save()
+    param18 = ImgParam(type='select', name='自动计算阈值算法',
                        value=['Otsu', 'Triangle', '熵算法', '直方图'], limit='', pName='findThreshType').save()
 
     operation5 = ImgOperation(name='自动分割', code='201', type=[type4],
                               params=[param16, param17, param18]).save()
 
 
+insert_old()
 insert()
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))

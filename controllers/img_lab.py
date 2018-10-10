@@ -1,4 +1,5 @@
 # coding=utf-8
+from algorithms_sigmentation import sigmentation_manager
 from algorithms_smooth import smooth_manager
 from app import app
 from flask import request, jsonify
@@ -29,8 +30,10 @@ def img_process_lab():
         o_code = operation['code']
         o_params = operation['params']
         image = request_body['image']
-
-        message = smooth_manager.process(o_code, o_params, image)
+        if int(o_code) < 200:
+            message = smooth_manager.process(o_code, o_params, image)
+        else:
+            message = sigmentation_manager.process(o_code, o_params, image)
         if message is None:
             return jsonify({'result': 0, 'message': '未找到图像处理方法'})
 
