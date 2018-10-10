@@ -9,9 +9,8 @@ from enum import Enum
 
 from algorithms_base.constant import ROOT_PATH
 from algorithms_base.handler import Handler
-from app import app
 from myenums.proc_code_enum import ProcCodeEnum
-from myenums.threshold_type_enum import get_thresh_type
+from algorithms_sigmentation.share_methods import get_thresh_type
 from util import get_unique_file_name
 
 

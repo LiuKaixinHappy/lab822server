@@ -8,7 +8,7 @@ import numpy as np
 from PIL import Image
 
 from algorithms_base.handler import Handler
-from myenums.border_type_enum import get_border_type
+from algorithms_smooth.share_methods import get_border_type
 from algorithms_base.constant import ROOT_PATH
 from util import get_unique_file_name
 from myenums.proc_code_enum import ProcCodeEnum

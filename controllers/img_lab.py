@@ -1,4 +1,5 @@
 # coding=utf-8
+from algorithms_contour import contour_manager
 from algorithms_sigmentation import sigmentation_manager
 from algorithms_smooth import smooth_manager
 from app import app
@@ -6,6 +7,8 @@ from flask import request, jsonify
 from models.img_type import ImgType
 from models.img_operations import ImgOperation
 import json
+
+from my_exceptions import ImageProcError
 
 
 @app.route('/')
@@ -30,11 +33,17 @@ def img_process_lab():
         o_code = operation['code']
         o_params = operation['params']
         image = request_body['image']
-        if int(o_code) < 200:
-            message = smooth_manager.process(o_code, o_params, image)
-        else:
-            message = sigmentation_manager.process(o_code, o_params, image)
-        if message is None:
-            return jsonify({'result': 0, 'message': '未找到图像处理方法'})
 
-        return jsonify({'result': 1, 'message': message})
+        message = None
+        try:
+            if int(o_code) < 200:
+                message = smooth_manager.process(o_code, o_params, image)
+            elif int(o_code) < 300:
+                message = sigmentation_manager.process(o_code, o_params, image)
+            elif int(o_code) < 400:
+                message = contour_manager.process(o_code, o_params, image)
+
+            return jsonify({'result': 1, 'message': message})
+        except Exception as e:
+            print e
+            return jsonify({'result': 0, 'message': e.message})

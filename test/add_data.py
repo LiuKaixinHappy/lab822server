@@ -25,8 +25,6 @@ class ImgOperation(Document):
 
 def insert_old():
     type1 = ImgType(name='图像平滑').save()
-    type2 = ImgType(name='边缘检测').save()
-    type3 = ImgType(name='轮廓提取').save()
 
     param1 = ImgParam(type='input', name='卷积核宽', value=[], limit='odd', pName='kSizeW').save()
     param2 = ImgParam(type='input', name='卷积核高', value=[], limit='odd', pName='kSizeH').save()
@@ -58,8 +56,8 @@ def insert_old():
                               params=[param8, param13, param14, param15, param5]).save()
 
 
-def insert():
-    type4 = ImgType(name='阈值分割').save()
+def insert_old_2():
+    type2 = ImgType(name='阈值分割').save()
 
     param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal').save()
     param17 = ImgParam(type='select', name='分割类型',
@@ -68,11 +66,26 @@ def insert():
     param18 = ImgParam(type='select', name='自动计算阈值算法',
                        value=['Otsu', 'Triangle', '熵算法', '直方图'], limit='', pName='findThreshType').save()
 
-    operation5 = ImgOperation(name='自动分割', code='201', type=[type4],
+    operation5 = ImgOperation(name='自动分割', code='201', type=[type2],
                               params=[param16, param17, param18]).save()
 
 
+def insert():
+    param19 = ImgParam(type='input', name='轮廓线宽度', value=[], limit='int >0', pName='contourWidth').save()
+    param20 = ImgParam(type='select', name='检测模式',
+                       value=['最外围轮廓', '所有轮廓(无等级)', '所有轮廓(两个等级)', '所有轮廓(等级树)'],
+                       limit='', pName='mode').save()
+    param21 = ImgParam(type='select', name='近似方法',
+                       value=['保留所有轮廓', '仅保留拐点', 'Teh-Chin-L1', 'Teh-Chin-KCOS'],
+                       limit='', pName='method').save()
+    type3 = ImgType(name='轮廓提取').save()
+
+    operation6 = ImgOperation(name='精确轮廓', code='301', type=[type3],
+                              params=[param19, param20, param21]).save()
+
+
 insert_old()
+insert_old_2()
 insert()
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))
