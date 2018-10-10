@@ -8,7 +8,6 @@ from myenums.proc_code_enum import ProcCodeEnum
 
 def accurate_contour(img, contour_width, binary_object_color, mode, method):
     im_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    print binary_object_color
     object_color = get_binary_object_color(binary_object_color)
     if object_color == 255:
         _, thresh_img = cv2.threshold(im_gray, 127, 255, cv2.THRESH_BINARY)
