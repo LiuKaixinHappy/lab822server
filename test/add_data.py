@@ -78,10 +78,13 @@ def insert():
     param21 = ImgParam(type='select', name='近似方法',
                        value=['保留所有轮廓', '仅保留拐点', 'Teh-Chin-L1', 'Teh-Chin-KCOS'],
                        limit='', pName='method').save()
+    param22 = ImgParam(type='select', name='二值化后物体颜色',
+                       value=['黑色', '白色'],
+                       limit='', pName='binaryObjectColor').save()
     type3 = ImgType(name='轮廓提取').save()
 
     operation6 = ImgOperation(name='精确轮廓', code='301', type=[type3],
-                              params=[param19, param20, param21]).save()
+                              params=[param19, param22, param20, param21]).save()
 
 
 insert_old()

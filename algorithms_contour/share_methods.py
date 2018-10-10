@@ -2,6 +2,7 @@
 import cv2
 
 
+# NOTE:顺序不可变
 def get_mode_type(index):
     """
     获得轮廓检测模式.
@@ -20,6 +21,7 @@ def get_mode_type(index):
     return mode_type[index]
 
 
+# NOTE:顺序不可变
 def get_method_type(index):
     """
     获得轮廓的近似方法
@@ -35,3 +37,15 @@ def get_method_type(index):
                    cv2.CHAIN_APPROX_TC89_L1,
                    cv2.CHAIN_APPROX_TC89_KCOS]
     return method_type[index]
+
+
+# NOTE:顺序不可变
+def get_binary_object_color(index):
+    """
+    获得二值化后物体的颜色
+
+    :param index:
+    :return:
+    """
+    binary_object_color = [0, 255]
+    return binary_object_color[index]

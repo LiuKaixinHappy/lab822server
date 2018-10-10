@@ -1,6 +1,8 @@
 # coding=utf-8
 import base64
+import logging
 import os
+import traceback
 
 import cv2
 import numpy as np
@@ -8,7 +10,7 @@ from PIL import Image
 
 from algorithms_base.constant import ROOT_PATH
 from algorithms_contour import contour_manager
-from algorithms_sigmentation import sigmentation_manager
+from algorithms_segmentation import segmentation_manager
 from algorithms_smooth import smooth_manager
 from app import app
 from flask import request, jsonify
@@ -47,22 +49,33 @@ def img_process_lab():
             app.logger.debug(e)
             return jsonify({'result': 0, 'message': '哎呀～图片base64编码转化失败，请再试一次或换张图'})
 
-        img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
-        if img_arr is None:
-            return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
-
+        log = None
         try:
             if int(o_code) < 200:
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
+                if img_arr is None:
+                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+
                 processed_img_arr = smooth_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 300:
-                processed_img_arr = sigmentation_manager.process(o_code, o_params, img_arr)
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
+                if img_arr is None:
+                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+
+                thresh, processed_img_arr = segmentation_manager.process(o_code, o_params, img_arr)
+                log = dict({'str': '最佳阈值为{}'.format(thresh)})
             elif int(o_code) < 400:
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                if img_arr is None:
+                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+
                 processed_img_arr = contour_manager.process(o_code, o_params, img_arr)
             else:
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
             app.logger.debug(e)
-            return jsonify({'result': 0, 'message': '哎呀～图像处理失败，请联系管理员'})
+            logging.exception(e)
+            return jsonify({'result': 0, 'message': '处理失败:{}'.format(e.message)})
 
         try:
             processed_img_name = img_arr_to_img_file(img_name, o_code, processed_img_arr)
@@ -76,7 +89,11 @@ def img_process_lab():
             app.logger.debug(e)
             return jsonify({'result': 0, 'message': '哎呀～图片转换传输失败，请再试一次'})
 
-        return jsonify({'result': 1, 'message': dict({'image': base64_data})})
+        if log is None:
+            message = dict({'image': base64_data})
+        else:
+            message = dict({'image': base64_data, 'log': log})
+        return jsonify({'result': 1, 'message': message})
 
 
 def img_file_to_base64(processed_img_name):

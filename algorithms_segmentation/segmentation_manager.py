@@ -1,5 +1,5 @@
 from algorithms_base.no_process import NoProcHandler
-from algorithms_sigmentation.auto_threshold import AutoThresholdHandler
+from algorithms_segmentation.auto_threshold import AutoThresholdHandler
 
 
 def process(code, params, image):
