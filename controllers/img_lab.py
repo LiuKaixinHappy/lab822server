@@ -46,7 +46,7 @@ def img_process_lab():
         try:
             img_name = base64_to_img_file(image_base64)
         except IOError as e:
-            app.logger.debug(e)
+            app.logger.exception(e)
             return jsonify({'result': 0, 'message': '哎呀～图片base64编码转化失败，请再试一次或换张图'})
 
         log = None
@@ -73,20 +73,19 @@ def img_process_lab():
             else:
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
-            app.logger.debug(e)
             app.logger.exception(e)
             return jsonify({'result': 0, 'message': '处理失败:{}'.format(e.message)})
 
         try:
             processed_img_name = img_arr_to_img_file(img_name, o_code, processed_img_arr)
         except IOError as e:
-            app.logger.debug(e)
+            app.logger.exception(e)
             return jsonify({'result': 0, 'message': '哎呀～处理后图片保存失败，请再试一次'})
 
         try:
             base64_data = img_file_to_base64(processed_img_name)
         except Exception as e:
-            app.logger.debug(e)
+            app.logger.exception(e)
             return jsonify({'result': 0, 'message': '哎呀～图片转换传输失败，请再试一次'})
 
         if log is None:
