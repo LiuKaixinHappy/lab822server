@@ -1,16 +1,11 @@
-import base64
 import math
 
 import cv2
-import os
 
 import numpy as np
-from PIL import Image
 
 from algorithms_base.handler import Handler
 from algorithms_smooth.share_methods import get_border_type
-from algorithms_base.constant import ROOT_PATH
-from util import get_unique_file_name
 from myenums.proc_code_enum import ProcCodeEnum
 
 
@@ -54,37 +49,20 @@ def jbf(img, k_size_w, k_size_h, sigma_g, sigma_d, border_type):
     return joint_b_f
 
 
-def joint_b_f_blur(img_name, k_size_w, k_size_h, sigma_g, sigma_d, border_type):
-    img = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
-
-    blur = jbf(img,
+def joint_b_f_blur(img, k_size_w, k_size_h, sigma_g, sigma_d, border_type):
+    return jbf(img,
                k_size_w=k_size_w,
                k_size_h=k_size_h,
                sigma_g=sigma_g,
                sigma_d=sigma_d,
                border_type=get_border_type(border_type))
 
-    processed_img = Image.fromarray(blur.astype(np.uint8))
-
-    path_and_suffix = img_name.split('.')
-    processed_img_name = '{}_{}.{}'.format(path_and_suffix[0], ProcCodeEnum.JOINT_B_F_BLUR, path_and_suffix[1])
-    # print processed_img_name
-    processed_img.save('{}/{}'.format(ROOT_PATH, processed_img_name))
-
-    with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as imageFile:
-        base64_data = base64.b64encode(imageFile.read())
-    return dict({'image': base64_data})
-
 
 class JointBFBlurHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.JOINT_B_F_BLUR:
-            img = base64.b64decode(image)
-            img_name = get_unique_file_name()
-            with open('{}/{}'.format(ROOT_PATH, img_name), 'wb') as img_file:
-                img_file.write(img)
 
-            return joint_b_f_blur(img_name,
+            return joint_b_f_blur(image,
                                   int(params['kSizeW']),
                                   int(params['kSizeH']),
                                   float(params['sigmaG']),
