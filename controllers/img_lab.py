@@ -1,8 +1,6 @@
 # coding=utf-8
 import base64
-import logging
 import os
-import traceback
 
 import cv2
 import numpy as np
@@ -20,10 +18,15 @@ import json
 
 from util import get_unique_file_name
 
+APP_ROOT = os.path.dirname(os.path.abspath('lab822server'))  # refers to application_top
+APP_STATIC_TXT = os.path.join(APP_ROOT, 'swagger')
 
-@app.route('/')
-def index():
-    return 'ok'
+
+@app.route('/swagger')
+def swagger():
+    with open(os.path.join(os.path.dirname(os.path.abspath('lab822server')), 'swagger/swagger.yaml')) as f:
+        s = f.read()
+    return str(s)
 
 
 @app.route('/imgproc/lab', methods=['GET', 'POST'])
