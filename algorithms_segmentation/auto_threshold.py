@@ -83,7 +83,7 @@ def auto_threshold(img, max_val, find_thresh_type, thresh_type):
     elif find_thresh_type == FindThreshTypeEnum.TRIANGLE:
         thresh, thresh_img = cv2.threshold(img, thresh, max_val, cv2.THRESH_TRIANGLE + get_thresh_type(thresh_type))
     elif find_thresh_type == FindThreshTypeEnum.ENTROPY:
-        thresh, thresh_img = thresh_entropy(img)
+        thresh, thresh_img = thresh_entropy(img, max_val, thresh_type)
     else:
         raise Exception('哎呀～该阈值类型尚未实现，请静候佳音')
     return thresh, thresh_img
