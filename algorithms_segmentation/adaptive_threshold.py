@@ -21,6 +21,6 @@ class AdaptiveThresholdHandler(Handler):
         if code == ProcCodeEnum.ADAPTIVE_THRESHOLD:
             return adaptive_threshold(image,
                                       int(params['kSize']),
-                                      int(params['ratio']))
+                                      float(params['ratio']))
         else:
             return self._to_next.handle(code, params, image)
