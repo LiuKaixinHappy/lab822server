@@ -7,7 +7,7 @@ from myenums.proc_code_enum import ProcCodeEnum
 
 
 def adaptive_threshold(image, k_size, ratio):
-    img_mean = cv2.boxFilter(image, cv2.CV_32FC1, k_size)
+    img_mean = cv2.boxFilter(image, cv2.CV_32FC1, (k_size, k_size))
 
     out = image - (1.0 - ratio) * img_mean
     out[out >= 0] = 255
