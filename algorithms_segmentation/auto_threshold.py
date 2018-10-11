@@ -27,7 +27,7 @@ def cal_gray_hist(image):
     return gray_hist
 
 
-def thresh_entropy(img):
+def thresh_entropy(img, max_val, thresh_type):
     rows, cols = img.shape
     gray_hist = cal_gray_hist(img)
     norm_gray_hist = gray_hist / float(rows * cols)
@@ -73,10 +73,7 @@ def thresh_entropy(img):
     thresh_loc = np.where(f_thresh == np.max(f_thresh))
     thresh = thresh_loc[0][0]
 
-    threshold = np.copy(img)
-    threshold[threshold > thresh] = 255
-    threshold[threshold <= thresh] = 0
-    return thresh, threshold
+    return cv2.threshold(img, thresh, max_val, get_thresh_type(thresh_type))
 
 
 def auto_threshold(img, max_val, find_thresh_type, thresh_type):
