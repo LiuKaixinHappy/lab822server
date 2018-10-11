@@ -70,7 +70,7 @@ def insert_old_2():
                               params=[param16, param17, param18]).save()
 
 
-def insert():
+def insert_old3():
     param19 = ImgParam(type='input', name='轮廓线宽度', value=[], limit='int >0', pName='contourWidth').save()
     param20 = ImgParam(type='select', name='检测模式',
                        value=['最外围轮廓', '所有轮廓(无等级)', '所有轮廓(两个等级)', '所有轮廓(等级树)'],
@@ -87,8 +87,22 @@ def insert():
                               params=[param19, param22, param20, param21]).save()
 
 
-insert_old()
-insert_old_2()
+def insert():
+    type2 = ImgType(name='阈值分割')
+    param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal')
+    param9 = ImgParam(type='input', name='窗口大小', value=[], limit='odd >1', pName='kSize')
+    param17 = ImgParam(type='select', name='分割类型',
+                       value=['THRESH_BINARY', 'THRESH_BINARY_INV', 'THRESH_TRUNC', 'THRESH_TOZERO',
+                              'THRESH_TOZERO_INV'], limit='', pName='threshType')
+    param23 = ImgParam(type='input', name='阈值', value=[], limit='int', pName='thresh').save()
+    operation7 = ImgOperation(name='手动分割', code='202', type=[type2],
+                              params=[param16, param23, param17]).save()
+
+    param24 = ImgParam(type='input', name='ratio', value=[], limit='>0 <1', pName='ratio').save()
+    operation8 = ImgOperation(name='局部分割', code='203', type=[type2],
+                              params=[param9, param24]).save()
+
+
 insert()
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))
