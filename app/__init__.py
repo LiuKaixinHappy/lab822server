@@ -28,7 +28,7 @@ def af_request(resp):
 
 
 SWAGGER_URL = '/api/docs'  # URL for exposing Swagger UI (without trailing '/')
-API_URL = 'http://0.0.0.0:5000/swagger'  # Our API url (can of course be a local resource)
+API_URL = '/swagger'  # Our API url (can of course be a local resource)
 
 # Call factory function to create our blueprint
 swaggerui_blueprint = get_swaggerui_blueprint(
@@ -46,7 +46,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     #    'additionalQueryStringParams': {'test': "hello"}
     # }
 )
-print swaggerui_blueprint.static_folder
 # Register blueprint at URL
 # (URL must match the one given to factory function above)
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
