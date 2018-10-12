@@ -19,3 +19,6 @@ class ProcCodeEnum(Enum):
     ACCURATE_CONTOUR = '301'
     FITTING_CONTOUR = '302'
 
+    # 角点提取
+    HARRIS_CORNER = '401'
+    SUBPIX_CORNER = '402'
