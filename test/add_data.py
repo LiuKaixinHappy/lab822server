@@ -56,7 +56,7 @@ def insert_old():
                               params=[param8, param13, param14, param15, param5]).save()
 
 
-def insert_old_2():
+def insert_old2():
     type2 = ImgType(name='阈值分割').save()
 
     param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal').save()
@@ -87,7 +87,7 @@ def insert_old3():
                               params=[param19, param22, param20, param21]).save()
 
 
-def insert():
+def insert_old4():
     type2 = ImgType(name='阈值分割')
     param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal')
     param9 = ImgParam(type='input', name='窗口大小', value=[], limit='odd >1', pName='kSize')
@@ -103,6 +103,21 @@ def insert():
                               params=[param9, param24]).save()
 
 
+def insert():
+    type4 = ImgType(name='角点检测').save()
+    param25 = ImgParam(type='input', name='邻域大小', value=[], limit='int', pName='blockSize')
+    param26 = ImgParam(type='input', name='窗口大小', value=[], limit='odd', pName='kSize')
+    param27 = ImgParam(type='input', name='Harris自由参数', value=[], limit='', pName='k')
+    param28 = ImgParam(type='input', name='角点判定阈值', value=[], limit='', pName='threshold')
+
+    operation9 = ImgOperation(name='Harries', code='401', type=[type4],
+                              params=[param25, param26, param27, param28]).save()
+
+
+# insert_old()
+# insert_old2()
+# insert_old3()
+# insert_old4()
 insert()
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))

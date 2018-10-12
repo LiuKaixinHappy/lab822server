@@ -8,6 +8,7 @@ from PIL import Image
 
 from algorithms_base.constant import ROOT_PATH
 from algorithms_contour import contour_manager
+from algorithms_corner import corner_manager
 from algorithms_segmentation import segmentation_manager
 from algorithms_smooth import smooth_manager
 from app import app
@@ -57,22 +58,28 @@ def img_process_lab():
             if int(o_code) < 200:
                 img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
                 if img_arr is None:
-                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+                    return jsonify({'result': 0, 'message': '[图像平滑]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = smooth_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 300:
                 img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
                 if img_arr is None:
-                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+                    return jsonify({'result': 0, 'message': '[阈值分割]图片读取失败，请联系QQ:644306737'})
 
                 thresh, processed_img_arr = segmentation_manager.process(o_code, o_params, img_arr)
                 log = dict({'str': '最佳阈值为{}'.format(thresh)})
             elif int(o_code) < 400:
                 img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
                 if img_arr is None:
-                    return jsonify({'result': 0, 'message': '哎呀～图片读取失败，请联系管理员'})
+                    return jsonify({'result': 0, 'message': '[轮廓提取]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = contour_manager.process(o_code, o_params, img_arr)
+            elif int(o_code) < 500:
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                if img_arr is None:
+                    return jsonify({'result': 0, 'message': '[角点检测]图片读取失败，请联系QQ:644306737'})
+
+                processed_img_arr = corner_manager.process(o_code, o_params, img_arr)
             else:
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
