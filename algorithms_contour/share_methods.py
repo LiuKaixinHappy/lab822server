@@ -49,3 +49,4 @@ def get_binary_object_color(index):
     """
     binary_object_color = [0, 255]
     return binary_object_color[index]
+
