@@ -81,6 +81,10 @@ def insert_old3():
     param22 = ImgParam(type='select', name='二值化后物体颜色',
                        value=['黑色', '白色'],
                        limit='', pName='binaryObjectColor').save()
+
+    param29 = ImgParam(type='select', name='输出图片类型',
+                       value=['原图+轮廓', '轮廓'],
+                       limit='', pName='outputType').save()
     type3 = ImgType(name='轮廓提取').save()
 
     operation6 = ImgOperation(name='精确轮廓', code='301', type=[type3],
@@ -118,7 +122,22 @@ def insert():
 # insert_old2()
 # insert_old3()
 # insert_old4()
-insert()
+# insert()
+op = ImgOperation.objects(name='精确轮廓')
+param29 = ImgParam(type='select', name='输出图片类型',
+                   value=['原图+轮廓', '轮廓'],
+                   limit='', pName='outputType').save()
+param19 = ImgParam(type='input', name='轮廓线宽度', value=[], limit='int >0', pName='contourWidth')
+param20 = ImgParam(type='select', name='检测模式',
+                   value=['最外围轮廓', '所有轮廓(无等级)', '所有轮廓(两个等级)', '所有轮廓(等级树)'],
+                   limit='', pName='mode')
+param21 = ImgParam(type='select', name='近似方法',
+                   value=['保留所有轮廓', '仅保留拐点', 'Teh-Chin-L1', 'Teh-Chin-KCOS'],
+                   limit='', pName='method')
+param22 = ImgParam(type='select', name='二值化后物体颜色',
+                   value=['黑色', '白色'],
+                   limit='', pName='binaryObjectColor')
+op.update_one(params=[param19, param22, param20, param21, param29])
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))
 
