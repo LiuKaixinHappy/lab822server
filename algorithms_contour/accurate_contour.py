@@ -29,7 +29,7 @@ def accurate_contour(img, contour_width, binary_object_color, mode, method, outp
     else:
         tmp = np.zeros(im_gray.shape, np.uint8)
         for i in xrange(n):
-            cv2.drawContours(tmp, contours, i, (0, 0, 0), contour_width)
+            cv2.drawContours(tmp, contours, i, (255, 255, 255), contour_width)
         return tmp
 
 
