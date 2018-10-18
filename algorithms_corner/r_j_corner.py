@@ -26,7 +26,7 @@ def r_j_corner(image, m_factor):
 
     corners = get_corners(contour, local_maxs, n, sizes)
 
-    cv2.drawContours(image, corners, -1, (255, 0, 0), 1)
+    cv2.drawContours(image, corners, -1, (255, 0, 0), 3)
 
     return image
 
