@@ -107,9 +107,13 @@ def img_process_lab():
 
 @app.route('/imgproc/learning/<section>/<title>', methods=['GET'])
 def img_process_learning(section, title):
-    with open(os.path.join('/var/lib/jenkins/workspace/data/img_proc/', section, '{}.md'.format(title))) as f:
-        s = f.read()
-    return jsonify({'result': 1, 'message': s})
+    try:
+        with open(os.path.join('/var/lib/jenkins/workspace/data/img_proc/', section, '{}.md'.format(title))) as f:
+            content = f.read()
+        return jsonify({'result': 1, 'message': dict({'content': content})})
+    except Exception as e:
+        app.logger.exception(e)
+        return jsonify({'result': 0, 'message': '文件未找到'})
 
 
 def img_file_to_base64(processed_img_name):
