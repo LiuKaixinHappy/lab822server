@@ -68,6 +68,19 @@ def insert_old2():
 
     operation5 = ImgOperation(name='自动分割', code='201', type=[type2],
                               params=[param16, param17, param18]).save()
+    param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal')
+    param9 = ImgParam(type='input', name='窗口大小', value=[], limit='odd >1', pName='kSize')
+    param17 = ImgParam(type='select', name='分割类型',
+                       value=['THRESH_BINARY', 'THRESH_BINARY_INV', 'THRESH_TRUNC', 'THRESH_TOZERO',
+                              'THRESH_TOZERO_INV'], limit='', pName='threshType')
+    param23 = ImgParam(type='input', name='阈值', value=[], limit='int', pName='thresh')
+
+    operation7 = ImgOperation(name='手动分割', code='202', type=[type2],
+                              params=[param16, param23, param17]).save()
+
+    param24 = ImgParam(type='input', name='ratio', value=[], limit='>0 <1', pName='ratio')
+    operation8 = ImgOperation(name='局部分割', code='203', type=[type2],
+                              params=[param9, param24]).save()
 
 
 def insert_old3():
@@ -91,22 +104,6 @@ def insert_old3():
                               params=[param19, param22, param20, param21, param29]).save()
 
 
-def insert_old4():
-    type2 = ImgType.objects(name='阈值分割')
-    param16 = ImgParam(type='input', name='二值化最大值', value=[], limit='int >-1 <256', pName='maxVal')
-    param9 = ImgParam(type='input', name='窗口大小', value=[], limit='odd >1', pName='kSize')
-    param17 = ImgParam(type='select', name='分割类型',
-                       value=['THRESH_BINARY', 'THRESH_BINARY_INV', 'THRESH_TRUNC', 'THRESH_TOZERO',
-                              'THRESH_TOZERO_INV'], limit='', pName='threshType')
-    param23 = ImgParam(type='input', name='阈值', value=[], limit='int', pName='thresh')
-    operation7 = ImgOperation(name='手动分割', code='202', type=[type2],
-                              params=[param16, param23, param17]).save()
-
-    param24 = ImgParam(type='input', name='ratio', value=[], limit='>0 <1', pName='ratio')
-    operation8 = ImgOperation(name='局部分割', code='203', type=[type2],
-                              params=[param9, param24]).save()
-
-
 def insert():
     type4 = ImgType(name='角点检测').save()
     param25 = ImgParam(type='input', name='邻域大小', value=[], limit='int', pName='blockSize')
@@ -126,9 +123,7 @@ def insert():
 insert_old()
 insert_old2()
 insert_old3()
-insert_old4()
 insert()
-
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))
 
