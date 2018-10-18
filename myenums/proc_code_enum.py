@@ -22,3 +22,4 @@ class ProcCodeEnum(Enum):
     # 角点提取
     HARRIS_CORNER = '401'
     SUBPIX_CORNER = '402'
+    R_J_CORNER = '403'
