@@ -105,6 +105,13 @@ def img_process_lab():
         return jsonify({'result': 1, 'message': message})
 
 
+@app.route('/imgproc/learning/<section>/<title>', methods=['GET'])
+def img_process_learning(section, title):
+    with open(os.path.join('/var/lib/jenkins/workspace/data/img_proc/', section, title)) as f:
+        s = f.read()
+    return str(s)
+
+
 def img_file_to_base64(processed_img_name):
     with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as image_file:
         base64_data = base64.b64encode(image_file.read())
