@@ -20,7 +20,7 @@ def r_j_corner(image, m_factor):
 
     n = len(contour)
 
-    m = n * m_factor
+    m = int(n * m_factor)
 
     local_maxs, sizes = get_local_max_and_size(contour, m, n)
 
