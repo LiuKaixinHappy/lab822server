@@ -27,3 +27,5 @@ class ProcCodeEnum(Enum):
     # 形态学处理
     ERODE = '501'
     DILATE = '502'
+    MORPH_OPERATIONS_CAL = '503'
+
