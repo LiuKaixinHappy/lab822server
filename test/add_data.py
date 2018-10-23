@@ -157,7 +157,7 @@ def insert():
     p5 = ImgParam(type='select', name='边界扩充方式',
                   value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
                   limit='', pName='borderType')
-    operation10 = ImgOperation(name='运算', code='503', type=type5,
+    operation10 = ImgOperation(name='形态学运算', code='503', type=type5,
                                params=[p1, p2, p3, p4, p5]).save()
 
 
