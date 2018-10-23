@@ -23,3 +23,7 @@ class ProcCodeEnum(Enum):
     HARRIS_CORNER = '401'
     SUBPIX_CORNER = '402'
     R_J_CORNER = '403'
+
+    # 形态学处理
+    ERODE = '501'
+    DILATE = '502'

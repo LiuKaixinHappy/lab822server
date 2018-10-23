@@ -1,7 +1,7 @@
 import cv2
 
 from algorithms_base.handler import Handler
-from algorithms_segmentation.share_methods import get_thresh_type
+from algorithms_base.share_methods import get_thresh_type
 from myenums.proc_code_enum import ProcCodeEnum
 
 

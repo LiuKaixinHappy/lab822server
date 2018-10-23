@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 
 from algorithms_base.handler import Handler
-from algorithms_smooth.share_methods import get_border_type
+from algorithms_base.share_methods import get_border_type
 from myenums.proc_code_enum import ProcCodeEnum
 
 

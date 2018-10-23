@@ -7,7 +7,7 @@ from enum import Enum
 
 from algorithms_base.handler import Handler
 from myenums.proc_code_enum import ProcCodeEnum
-from algorithms_segmentation.share_methods import get_thresh_type
+from algorithms_base.share_methods import get_thresh_type
 
 
 class FindThreshTypeEnum(Enum):

@@ -9,6 +9,7 @@ from PIL import Image
 from algorithms_base.constant import ROOT_PATH
 from algorithms_contour import contour_manager
 from algorithms_corner import corner_manager
+from algorithms_morphology import morphology_manager
 from algorithms_segmentation import segmentation_manager
 from algorithms_smooth import smooth_manager
 from app import app
@@ -80,6 +81,12 @@ def img_process_lab():
                     return jsonify({'result': 0, 'message': '[角点检测]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = corner_manager.process(o_code, o_params, img_arr)
+            elif int(o_code) < 600:
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                if img_arr is None:
+                    return jsonify({'result': 0, 'message': '[形态学处理]图片读取失败，请联系QQ:644306737'})
+
+                processed_img_arr = morphology_manager.process(o_code, o_params, img_arr)
             else:
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:

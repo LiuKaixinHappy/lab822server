@@ -50,3 +50,39 @@ def get_binary_object_color(index):
     binary_object_color = [0, 255]
     return binary_object_color[index]
 
+
+# NOTE:顺序不可变
+def get_thresh_type(index):
+    thresh_type = [cv2.THRESH_BINARY,
+                   cv2.THRESH_BINARY_INV,
+                   cv2.THRESH_TRUNC,
+                   cv2.THRESH_TOZERO,
+                   cv2.THRESH_TOZERO_INV]
+    return thresh_type[index]
+
+
+# NOTE:顺序不可变
+def get_border_type(index):
+    border_types = [cv2.BORDER_REPLICATE,
+                    cv2.BORDER_CONSTANT,
+                    cv2.BORDER_REFLECT,
+                    cv2.BORDER_REFLECT_101,
+                    cv2.BORDER_WRAP]
+    return border_types[index]
+
+
+# NOTE:顺序不可变
+def get_shape_type(index):
+    """
+    获得结构元形状.
+    MORPH_RECT: 矩形.
+    MORPH_ELLIPSE: 椭圆形.
+    MORPH_CROSS: 十字交叉.
+
+    :param index: 形状索引.
+    :return: 形状.
+    """
+    shape_type = [cv2.MORPH_RECT,
+                  cv2.MORPH_ELLIPSE,
+                  cv2.MORPH_CROSS]
+    return shape_type[index]
