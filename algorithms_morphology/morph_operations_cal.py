@@ -8,7 +8,7 @@ from myenums.proc_code_enum import ProcCodeEnum
 def do_operations(image, k_size, shape, op, iterations, border_type):
     return cv2.morphologyEx(src=image,
                             kernel=cv2.getStructuringElement(get_shape_type(shape), (k_size, k_size)),
-                            op=op,
+                            op=get_morphology_operations(op),
                             iterations=iterations,
                             borderType=get_border_type(border_type))
 

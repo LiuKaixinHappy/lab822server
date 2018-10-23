@@ -86,3 +86,24 @@ def get_shape_type(index):
                   cv2.MORPH_ELLIPSE,
                   cv2.MORPH_CROSS]
     return shape_type[index]
+
+
+# NOTE:顺序不可变
+def get_morphology_operations(index):
+    """
+    获得要进行的形态学运算.
+    MORPH_OPEN: 开运算,
+    MORPH_CLOSE: 闭运算,
+    MORPH_GRADIENT: 形态梯度,
+    MORPH_TOPHAT: 顶帽运算,
+    MORPH_BLACKHAT: 底帽运算
+
+    :param index: 索引
+    :return: 运算
+    """
+    op_type = [cv2.MORPH_OPEN,
+               cv2.MORPH_CLOSE,
+               cv2.MORPH_GRADIENT,
+               cv2.MORPH_TOPHAT,
+               cv2.MORPH_BLACKHAT]
+    return op_type[index]
