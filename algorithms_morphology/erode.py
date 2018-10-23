@@ -6,7 +6,7 @@ from myenums.proc_code_enum import ProcCodeEnum
 
 
 def do_erode(image, k_size, shape, iterations, border_type, border_value):
-    return cv2.erode(image, cv2.getStructuringElement(get_shape_type(shape), k_size), iterations,
+    return cv2.erode(image, cv2.getStructuringElement(get_shape_type(shape), (k_size, k_size)), iterations,
                      get_border_type(border_type),
                      border_value)
 
