@@ -5,12 +5,11 @@ from algorithms_base.share_methods import get_border_type, get_shape_type
 from myenums.proc_code_enum import ProcCodeEnum
 
 
-def do_dilate(image, k_size, shape, iterations, border_type, border_value):
+def do_dilate(image, k_size, shape, iterations, border_type):
     return cv2.dilate(src=image,
                       kernel=cv2.getStructuringElement(get_shape_type(shape), (k_size, k_size)),
                       iterations=iterations,
-                      borderType=get_border_type(border_type),
-                      borderValue=border_value)
+                      borderType=get_border_type(border_type))
 
 
 class DilateHandler(Handler):
@@ -20,7 +19,6 @@ class DilateHandler(Handler):
                              int(params['kSize']),
                              int(params['shape']),
                              int(params['iterations']),
-                             int(params['borderType']),
-                             int(params['borderValue']))
+                             int(params['borderType']))
         else:
             return self._to_next.handle(code, params, image)

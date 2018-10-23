@@ -138,13 +138,12 @@ def insert():
     param5 = ImgParam(type='select', name='边界扩充方式',
                       value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
                       limit='', pName='borderType')
-    param4 = ImgParam(type='input', name='边界扩充值', value=[], limit='int', pName='borderValue')
 
     operation9 = ImgOperation(name='腐蚀', code='501', type=[type5],
-                              params=[param1, param2, param3, param5, param4]).save()
+                              params=[param1, param2, param3, param5]).save()
 
     operation10 = ImgOperation(name='膨胀', code='502', type=[type5],
-                               params=[param1, param2, param3, param5, param4]).save()
+                               params=[param1, param2, param3, param5]).save()
 
 
 # insert_old()
