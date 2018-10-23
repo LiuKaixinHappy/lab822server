@@ -152,8 +152,8 @@ def insert():
     p2 = ImgParam(type='select', name='结构元形状', value=['矩形', '椭圆形', '十字交叉形'], limit='', pName='shape')
     p3 = ImgParam(type='input', name='迭代次数', value=[], limit='int >0', pName='iterations')
     p4 = ImgParam(type='select', name='运算', value=['开运算', '闭运算', '形态梯度', '顶帽运算', '底帽运算'],
-                  limit='int >0',
-                  pName='iterations')
+                  limit='',
+                  pName='op')
     p5 = ImgParam(type='select', name='边界扩充方式',
                   value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
                   limit='', pName='borderType')
