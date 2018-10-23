@@ -104,7 +104,7 @@ def insert_old3():
                               params=[param19, param22, param20, param21, param29]).save()
 
 
-def insert():
+def insert_old4():
     type4 = ImgType(name='角点检测').save()
     param25 = ImgParam(type='input', name='邻域大小', value=[], limit='int', pName='blockSize')
     param26 = ImgParam(type='input', name='窗口大小', value=[], limit='odd', pName='kSize')
@@ -120,9 +120,35 @@ def insert():
                                params=[param30]).save()
 
 
-insert_old()
-insert_old2()
-insert_old3()
+"""
+int(params['kSize']),
+                             int(params['shape']),
+                             int(params['iterations']),
+                             int(params['borderType']),
+                             int(params['borderValue']))
+"""
+
+
+def insert():
+    type5 = ImgType(name='形态学处理').save()
+    param1 = ImgParam(type='input', name='结构元大小', value=[], limit='odd', pName='kSize')
+    param2 = ImgParam(type='select', name='结构元形状', value=['矩形', '椭圆形', '十字交叉形'], limit='', pName='shape')
+    param5 = ImgParam(type='select', name='边界扩充方式',
+                      value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
+                      limit='', pName='borderType')
+    param4 = ImgParam(type='input', name='边界扩充值', value=[], limit='int', pName='borderValue')
+
+    operation9 = ImgOperation(name='腐蚀', code='501', type=[type5],
+                              params=[param1, param2, param5, param4]).save()
+
+    operation10 = ImgOperation(name='膨胀', code='502', type=[type5],
+                               params=[param1, param2, param5, param4]).save()
+
+
+# insert_old()
+# insert_old2()
+# insert_old3()
+# insert_old4()
 insert()
 
 o1s = list(ImgOperation.objects(type__name='图像平滑').exclude('id', 'name', 'code'))
