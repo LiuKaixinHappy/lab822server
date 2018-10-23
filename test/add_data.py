@@ -133,16 +133,18 @@ def insert():
     type5 = ImgType(name='形态学处理').save()
     param1 = ImgParam(type='input', name='结构元大小', value=[], limit='odd', pName='kSize')
     param2 = ImgParam(type='select', name='结构元形状', value=['矩形', '椭圆形', '十字交叉形'], limit='', pName='shape')
+    param3 = ImgParam(type='input', name='迭代次数', value=[], limit='int >0', pName='iterations')
+
     param5 = ImgParam(type='select', name='边界扩充方式',
                       value=['边界复制', '常数扩充', '反射扩充', '边界为中心反射扩充', '平铺扩充'],
                       limit='', pName='borderType')
     param4 = ImgParam(type='input', name='边界扩充值', value=[], limit='int', pName='borderValue')
 
     operation9 = ImgOperation(name='腐蚀', code='501', type=[type5],
-                              params=[param1, param2, param5, param4]).save()
+                              params=[param1, param2, param3, param5, param4]).save()
 
     operation10 = ImgOperation(name='膨胀', code='502', type=[type5],
-                               params=[param1, param2, param5, param4]).save()
+                               params=[param1, param2, param3, param5, param4]).save()
 
 
 # insert_old()

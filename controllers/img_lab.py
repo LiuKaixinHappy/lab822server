@@ -82,7 +82,7 @@ def img_process_lab():
 
                 processed_img_arr = corner_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 600:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[形态学处理]图片读取失败，请联系QQ:644306737'})
 
