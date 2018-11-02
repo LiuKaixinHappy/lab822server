@@ -1,6 +1,5 @@
 # coding=utf-8
 from algorithms_base.handler import Handler
-from my_exceptions import ImageProcError
 
 
 class NoProcHandler(Handler):
