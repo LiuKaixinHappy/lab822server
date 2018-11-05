@@ -8,4 +8,5 @@ class ImgParam(db.Document):
     value = db.ListField()
     limit = db.StringField()
     pName = db.StringField()
+    desc = db.StringField()
 
