@@ -26,7 +26,8 @@ APP_STATIC_TXT = os.path.join(APP_ROOT, 'swagger')
 
 @app.route('/swagger')
 def swagger():
-    with open(os.path.join(os.path.dirname(os.path.abspath('lab822server')), 'swagger/swagger.yaml')) as f:
+    with open(os.path.join(os.path.dirname(
+            os.path.abspath('lab822server')), 'swagger/swagger.yaml')) as f:
         s = f.read()
     return str(s)
 
@@ -115,7 +116,8 @@ def img_process_lab():
 @app.route('/imgproc/learning/<section>/<title>', methods=['GET'])
 def img_process_learning(section, title):
     try:
-        with open(os.path.join('/var/lib/jenkins/workspace/data/img_proc/', section, '{}.md'.format(title))) as f:
+        with open(os.path.join(
+                '/var/lib/jenkins/workspace/data/img_proc/', section, '{}.md'.format(title))) as f:
             content = f.read()
         return jsonify({'result': 1, 'message': dict({'content': content})})
     except Exception as e:
