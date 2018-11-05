@@ -18,7 +18,7 @@
 
   - 成功
 
-    ```json
+    ```javascript
     {
         result: 1,
         message: [
@@ -59,7 +59,7 @@
 
   - 失败
 
-    ```json
+    ```javascript
     {
         result: 0,
         message: 'string'
@@ -74,7 +74,7 @@
 
 - Request:
 
-  ```json
+  ```javascript
   {
       operations: [
           {
@@ -97,7 +97,7 @@
 
   - 成功：
 
-    ```json
+    ```javascript
     {
         result: 1,
         message: {
@@ -117,7 +117,7 @@
 
   - 失败：
 
-    ```json
+    ```javascript
     {
         result: 0,
         message: 'string'
