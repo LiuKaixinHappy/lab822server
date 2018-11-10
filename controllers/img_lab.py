@@ -58,7 +58,7 @@ def img_process_lab():
         log = None
         try:
             if int(o_code) < 200:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_ANYCOLOR)
+                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name))
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[图像平滑]图片读取失败，请联系QQ:644306737'})
 
