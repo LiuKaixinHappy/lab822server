@@ -132,11 +132,10 @@ def img_file_to_base64(processed_img_name):
 
 
 def img_arr_to_img_file(img_name, o_code, processed_img_arr):
-    processed_img = Image.fromarray(processed_img_arr.astype(np.uint8))
     path_and_suffix = img_name.split('.')
     processed_img_name = '{}_{}.{}'.format(path_and_suffix[0], o_code, path_and_suffix[1])
     # print processed_img_name
-    processed_img.save('{}/{}'.format(ROOT_PATH, processed_img_name))
+    cv2.imwrite('{}/{}'.format(ROOT_PATH, processed_img_name), processed_img_arr)
     return processed_img_name
 
 
