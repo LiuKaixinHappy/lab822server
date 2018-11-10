@@ -50,6 +50,7 @@ def jbf(img, k_size_w, k_size_h, sigma_g, sigma_d, border_type):
 
 
 def joint_b_f_blur(img, k_size_w, k_size_h, sigma_g, sigma_d, border_type):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     return jbf(img,
                k_size_w=k_size_w,
                k_size_h=k_size_h,

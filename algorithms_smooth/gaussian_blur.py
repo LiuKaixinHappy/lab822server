@@ -6,7 +6,6 @@ from myenums.proc_code_enum import ProcCodeEnum
 
 
 def gaussian_blur(image, k_size_w, k_size_h, sigma_x, sigma_y, border_type):
-    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     return cv2.GaussianBlur(image,
                             ksize=(k_size_w, k_size_h),
                             sigmaX=sigma_x,
