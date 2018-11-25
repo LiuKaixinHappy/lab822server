@@ -7,7 +7,7 @@ from img_algorithms.algorithms_segmentation import ManualThresholdHandler
 
 
 def process(code, params, image):
-    image = cv2.convertScaleAbs(image)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     auto_thresh = AutoThresholdHandler()
     manual_thresh = ManualThresholdHandler()
     adaptive_thresh = AdaptiveThresholdHandler()
