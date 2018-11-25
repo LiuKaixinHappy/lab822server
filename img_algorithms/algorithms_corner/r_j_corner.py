@@ -36,7 +36,7 @@ def get_cos_of_support_region(outline, point_index, max_support_region, len_outl
             return last_support_arm, last_cos
 
 
-def r_j_corner(image, m_factor, corner_size=3):
+def r_j_corner(image, m_factor, corner_size):
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     _, thresh_img = cv2.threshold(img_gray, 127, 255, cv2.THRESH_BINARY)
@@ -80,6 +80,7 @@ class RJCornerHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.R_J_CORNER:
             return r_j_corner(image,
-                              int(params['mFactor'], int(params['cornerSize'])))
+                              int(params['mFactor']),
+                              int(params['cornerSize']))
         else:
             return self._to_next.handle(code, params, image)
