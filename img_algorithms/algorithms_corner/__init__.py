@@ -1,4 +1,4 @@
-from corner_manager import process
 from harris_corner import HarrisCornerHandler
 from r_j_corner import RJCornerHandler
 from subpix_corner import SubPixelCornerHandler
+from corner_manager import process
