@@ -3,11 +3,11 @@ import os
 
 import cv2
 
-from img_algorithms.algorithms_contour import contour_manager
-from img_algorithms.algorithms_corner import corner_manager
-from img_algorithms.algorithms_morphology import morphology_manager
-from img_algorithms.algorithms_segmentation import segmentation_manager
-from img_algorithms.algorithms_smooth import smooth_manager
+from img_algorithms import contour_manager
+from img_algorithms import corner_manager
+from img_algorithms import morphology_manager
+from img_algorithms import segmentation_manager
+from img_algorithms import smooth_manager
 from app import app
 from flask import request, jsonify
 from models.img_type import ImgType
@@ -23,6 +23,11 @@ def swagger():
     with open(get_swagger_path()) as f:
         s = f.read()
     return str(s)
+
+
+@app.route('/')
+def hello():
+    return 'hello'
 
 
 @app.route('/imgproc/lab', methods=['GET', 'POST'])

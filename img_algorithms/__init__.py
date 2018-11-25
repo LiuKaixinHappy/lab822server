@@ -1,0 +1,5 @@
+from algorithms_contour import contour_manager
+from algorithms_corner import corner_manager
+from algorithms_morphology import morphology_manager
+from algorithms_segmentation import segmentation_manager
+from algorithms_smooth import smooth_manager
