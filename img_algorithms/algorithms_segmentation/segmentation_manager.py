@@ -1,3 +1,5 @@
+import cv2
+
 from img_algorithms.algorithms_base import NoProcHandler
 from img_algorithms.algorithms_segmentation import AdaptiveThresholdHandler
 from img_algorithms.algorithms_segmentation import AutoThresholdHandler
@@ -5,6 +7,7 @@ from img_algorithms.algorithms_segmentation import ManualThresholdHandler
 
 
 def process(code, params, image):
+    image = cv2.convertScaleAbs(image)
     auto_thresh = AutoThresholdHandler()
     manual_thresh = ManualThresholdHandler()
     adaptive_thresh = AdaptiveThresholdHandler()
