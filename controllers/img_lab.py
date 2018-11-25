@@ -51,63 +51,48 @@ def img_process_lab():
             img_name = base64_to_img_file(image_base64)
         except IOError as e:
             app.logger.exception(e)
-            return jsonify({'result': 0, 'message': '哎呀～图片base64编码转化失败，请再试一次或换张图'})
+            return jsonify({'result': 0, 'message': '图片传送失败，请再试一次或换张图'})
 
-        log = None
+        img_log = None
+        img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
+
+        if img_arr is None:
+            return jsonify({'result': 0, 'message': '服务器空间不足，请联系QQ:644306737'})
+
         try:
             if int(o_code) < 200:
-                img_arr = cv2.imread(os.path.join(get_root_path, img_name))
-                if img_arr is None:
-                    return jsonify({'result': 0, 'message': '[图像平滑]图片读取失败，请联系QQ:644306737'})
-
                 processed_img_arr = smooth_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 300:
-                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_GRAYSCALE)
-                if img_arr is None:
-                    return jsonify({'result': 0, 'message': '[阈值分割]图片读取失败，请联系QQ:644306737'})
-
                 thresh, processed_img_arr = segmentation_manager.process(o_code, o_params, img_arr)
-                log = dict({'str': '最佳阈值为{}'.format(thresh)})
+                img_log = dict({'str': '最佳阈值为{}'.format(thresh)})
             elif int(o_code) < 400:
-                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
-                if img_arr is None:
-                    return jsonify({'result': 0, 'message': '[轮廓提取]图片读取失败，请联系QQ:644306737'})
-
                 processed_img_arr = contour_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 500:
-                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
-                if img_arr is None:
-                    return jsonify({'result': 0, 'message': '[角点检测]图片读取失败，请联系QQ:644306737'})
-
                 processed_img_arr = corner_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 600:
-                img_arr = cv2.imread(os.path.join(get_root_path, img_name))
-                if img_arr is None:
-                    return jsonify({'result': 0, 'message': '[形态学处理]图片读取失败，请联系QQ:644306737'})
-
                 processed_img_arr = morphology_manager.process(o_code, o_params, img_arr)
             else:
                 return jsonify({'result': 0, 'message': '哎呀～该方法尚未完成，请静候佳音'})
         except Exception as e:
             app.logger.exception(e)
-            return jsonify({'result': 0, 'message': '处理失败:{}'.format(e.message)})
+            return jsonify({'result': 0, 'message': '处理失败:{}，请联系QQ:644306737'.format(e.message)})
 
         try:
             processed_img_name = img_arr_to_img_file(img_name, o_code, processed_img_arr)
         except IOError as e:
             app.logger.exception(e)
-            return jsonify({'result': 0, 'message': '哎呀～处理后图片保存失败，请再试一次'})
+            return jsonify({'result': 0, 'message': '服务器空间不足，请联系QQ:644306737'})
 
         try:
             base64_data = img_file_to_base64(processed_img_name)
         except Exception as e:
             app.logger.exception(e)
-            return jsonify({'result': 0, 'message': '哎呀～图片转换传输失败，请再试一次'})
+            return jsonify({'result': 0, 'message': '图片转换传输失败，请再试一次，或联系QQ:644306737'})
 
-        if log is None:
+        if img_log is None:
             message = dict({'image': base64_data})
         else:
-            message = dict({'image': base64_data, 'log': log})
+            message = dict({'image': base64_data, 'log': img_log})
         return jsonify({'result': 1, 'message': message})
 
 
