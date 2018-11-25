@@ -54,7 +54,7 @@ def img_process_lab():
             return jsonify({'result': 0, 'message': '图片传送失败，请再试一次或换张图'})
 
         img_log = None
-        img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
+        img_arr = cv2.imread(os.path.join(get_root_path(), img_name), cv2.IMREAD_COLOR)
 
         if img_arr is None:
             return jsonify({'result': 0, 'message': '服务器空间不足，请联系QQ:644306737'})
