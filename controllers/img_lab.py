@@ -14,7 +14,7 @@ from models.img_type import ImgType
 from models.img_operations import ImgOperation
 import json
 
-from util import get_root_path, base64_to_img_file, img_arr_to_img_file, img_file_to_base64
+from util import get_root_path, base64_to_img_file, img_arr_to_img_file, img_file_to_base64, delete_files
 from util import get_swagger_path
 
 
@@ -93,6 +93,8 @@ def img_process_lab():
             message = dict({'image': base64_data})
         else:
             message = dict({'image': base64_data, 'log': img_log})
+
+        delete_files([img_name, processed_img_name])
         return jsonify({'result': 1, 'message': message})
 
 

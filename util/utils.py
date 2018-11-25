@@ -1,7 +1,11 @@
+# coding=utf-8
 import base64
+import os
+
 import cv2
 import uuid
 
+from app import app
 from config import get_root_path
 
 
@@ -29,3 +33,13 @@ def base64_to_img_file(image):
     with open('{}/{}'.format(get_root_path(), img_name), 'wb') as img_file:
         img_file.write(img)
     return img_name
+
+
+def delete_files(file_names):
+    for file_name in file_names:
+        file_path_n_name = os.path.join(get_root_path(), file_name)
+        if os.path.exists(file_path_n_name):
+            os.remove(file_path_n_name)
+            app.logger.debug('Delete {}'.format(file_name))
+        else:
+            app.logger.debug('Delete error, Not Found {}'.format(file_name))
