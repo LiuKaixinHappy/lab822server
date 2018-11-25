@@ -7,7 +7,7 @@ from enum import Enum
 
 from img_algorithms.algorithms_base.handler import Handler
 from myenums.proc_code_enum import ProcCodeEnum
-from img_algorithms.algorithms_base.share_methods import get_thresh_type
+from img_algorithms.algorithms_base import get_thresh_type
 
 
 class FindThreshTypeEnum(Enum):

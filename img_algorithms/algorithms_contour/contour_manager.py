@@ -1,4 +1,4 @@
-from img_algorithms.algorithms_base.no_process import NoProcHandler
+from img_algorithms.algorithms_base import NoProcHandler
 from img_algorithms.algorithms_contour import AccurateContourHandler
 
 

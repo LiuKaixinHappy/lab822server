@@ -1,5 +1,5 @@
-from img_algorithms.algorithms_base.no_process import NoProcHandler
-from img_algorithms.algorithms_morphology.dilate import DilateHandler
+from img_algorithms.algorithms_base import NoProcHandler
+from img_algorithms.algorithms_morphology import DilateHandler
 from img_algorithms.algorithms_morphology import ErodeHandler
 from img_algorithms.algorithms_morphology import MorphOperationsCalHandler
 

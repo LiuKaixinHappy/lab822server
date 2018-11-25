@@ -1,9 +1,9 @@
-from img_algorithms.algorithms_base.no_process import NoProcHandler
-from img_algorithms.algorithms_smooth.b_f_blur import BFBlurHandler
-from img_algorithms.algorithms_smooth.gaussian_blur import GaussianBlurHandler
-from img_algorithms.algorithms_smooth.joint_b_f_blur import JointBFBlurHandler
-from img_algorithms.algorithms_smooth.mean_blur import MeanBlurHandler
-from img_algorithms.algorithms_smooth.media_blur import MediaBlurHandler
+from img_algorithms.algorithms_base import NoProcHandler
+from img_algorithms.algorithms_smooth import BFBlurHandler
+from img_algorithms.algorithms_smooth import GaussianBlurHandler
+from img_algorithms.algorithms_smooth import JointBFBlurHandler
+from img_algorithms.algorithms_smooth import MeanBlurHandler
+from img_algorithms.algorithms_smooth import MediaBlurHandler
 
 
 def process(code, params, image):

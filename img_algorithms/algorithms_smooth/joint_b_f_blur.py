@@ -4,8 +4,8 @@ import cv2
 
 import numpy as np
 
-from img_algorithms.algorithms_base.handler import Handler
-from img_algorithms.algorithms_base.share_methods import get_border_type
+from img_algorithms.algorithms_base import Handler
+from img_algorithms.algorithms_base import get_border_type
 from myenums.proc_code_enum import ProcCodeEnum
 
 

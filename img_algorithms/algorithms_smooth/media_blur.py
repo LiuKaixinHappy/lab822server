@@ -1,6 +1,6 @@
 import cv2
 
-from img_algorithms.algorithms_base.handler import Handler
+from img_algorithms.algorithms_base import Handler
 from myenums.proc_code_enum import ProcCodeEnum
 
 
