@@ -14,7 +14,7 @@ def get_unique_file_name():
 
 
 def img_file_to_base64(processed_img_name):
-    with open('{}/{}'.format(get_root_path, processed_img_name), "rb") as image_file:
+    with open('{}/{}'.format(get_root_path(), processed_img_name), "rb") as image_file:
         base64_data = base64.b64encode(image_file.read())
     return base64_data
 
