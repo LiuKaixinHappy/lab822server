@@ -76,6 +76,6 @@ class RJCornerHandler(Handler):
     def handle(self, code, params, image):
         if code == ProcCodeEnum.R_J_CORNER:
             return r_j_corner(image,
-                              float(params['mFactor']))
+                              int(params['mFactor']))
         else:
             return self._to_next.handle(code, params, image)
