@@ -1,7 +1,7 @@
 import cv2
 
-from algorithms_base.handler import Handler
-from algorithms_base.share_methods import get_shape_type, get_border_type, get_morphology_operations
+from img_algorithms.algorithms_base.handler import Handler
+from img_algorithms.algorithms_base.share_methods import get_shape_type, get_border_type, get_morphology_operations
 from myenums.proc_code_enum import ProcCodeEnum
 
 

@@ -2,7 +2,7 @@
 import cv2
 import numpy as np
 
-from algorithms_base.handler import Handler
+from img_algorithms.algorithms_base.handler import Handler
 from myenums.proc_code_enum import ProcCodeEnum
 
 

@@ -1,5 +1,5 @@
-from algorithms_base.no_process import NoProcHandler
-from algorithms_contour.accurate_contour import AccurateContourHandler
+from img_algorithms.algorithms_base.no_process import NoProcHandler
+from img_algorithms.algorithms_contour import AccurateContourHandler
 
 
 def process(code, params, image):

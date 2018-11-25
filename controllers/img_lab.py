@@ -1,33 +1,26 @@
 # coding=utf-8
-import base64
 import os
 
 import cv2
-import numpy as np
-from PIL import Image
 
-from algorithms_base.constant import ROOT_PATH
-from algorithms_contour import contour_manager
-from algorithms_corner import corner_manager
-from algorithms_morphology import morphology_manager
-from algorithms_segmentation import segmentation_manager
-from algorithms_smooth import smooth_manager
+from img_algorithms.algorithms_contour import contour_manager
+from img_algorithms.algorithms_corner import corner_manager
+from img_algorithms.algorithms_morphology import morphology_manager
+from img_algorithms.algorithms_segmentation import segmentation_manager
+from img_algorithms.algorithms_smooth import smooth_manager
 from app import app
 from flask import request, jsonify
 from models.img_type import ImgType
 from models.img_operations import ImgOperation
 import json
 
-from util import get_unique_file_name
-
-APP_ROOT = os.path.dirname(os.path.abspath('lab822server'))  # refers to application_top
-APP_STATIC_TXT = os.path.join(APP_ROOT, 'swagger')
+from util import get_root_path, base64_to_img_file, img_arr_to_img_file, img_file_to_base64
+from util import get_swagger_path
 
 
 @app.route('/swagger')
 def swagger():
-    with open(os.path.join(os.path.dirname(
-            os.path.abspath('lab822server')), 'swagger/swagger.yaml')) as f:
+    with open(get_swagger_path()) as f:
         s = f.read()
     return str(s)
 
@@ -58,32 +51,32 @@ def img_process_lab():
         log = None
         try:
             if int(o_code) < 200:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name))
+                img_arr = cv2.imread(os.path.join(get_root_path, img_name))
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[图像平滑]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = smooth_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 300:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_GRAYSCALE)
+                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_GRAYSCALE)
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[阈值分割]图片读取失败，请联系QQ:644306737'})
 
                 thresh, processed_img_arr = segmentation_manager.process(o_code, o_params, img_arr)
                 log = dict({'str': '最佳阈值为{}'.format(thresh)})
             elif int(o_code) < 400:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[轮廓提取]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = contour_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 500:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name), cv2.IMREAD_COLOR)
+                img_arr = cv2.imread(os.path.join(get_root_path, img_name), cv2.IMREAD_COLOR)
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[角点检测]图片读取失败，请联系QQ:644306737'})
 
                 processed_img_arr = corner_manager.process(o_code, o_params, img_arr)
             elif int(o_code) < 600:
-                img_arr = cv2.imread(os.path.join(ROOT_PATH, img_name))
+                img_arr = cv2.imread(os.path.join(get_root_path, img_name))
                 if img_arr is None:
                     return jsonify({'result': 0, 'message': '[形态学处理]图片读取失败，请联系QQ:644306737'})
 
@@ -116,32 +109,10 @@ def img_process_lab():
 @app.route('/imgproc/learning/<section>/<title>', methods=['GET'])
 def img_process_learning(section, title):
     try:
-        with open(os.path.join(
-                '/var/lib/jenkins/workspace/data/img_proc/', section, '{}.md'.format(title))) as f:
+        with open(os.path.join('/var/lib/jenkins/workspace/data/img_proc/',
+                               section, '{}.md'.format(title))) as f:
             content = f.read()
         return jsonify({'result': 1, 'message': dict({'content': content})})
     except Exception as e:
         app.logger.exception(e)
         return jsonify({'result': 0, 'message': '文件未找到'})
-
-
-def img_file_to_base64(processed_img_name):
-    with open('{}/{}'.format(ROOT_PATH, processed_img_name), "rb") as image_file:
-        base64_data = base64.b64encode(image_file.read())
-    return base64_data
-
-
-def img_arr_to_img_file(img_name, o_code, processed_img_arr):
-    path_and_suffix = img_name.split('.')
-    processed_img_name = '{}_{}.{}'.format(path_and_suffix[0], o_code, path_and_suffix[1])
-    # print processed_img_name
-    cv2.imwrite('{}/{}'.format(ROOT_PATH, processed_img_name), processed_img_arr)
-    return processed_img_name
-
-
-def base64_to_img_file(image):
-    img = base64.b64decode(image)
-    img_name = get_unique_file_name()
-    with open('{}/{}'.format(ROOT_PATH, img_name), 'wb') as img_file:
-        img_file.write(img)
-    return img_name

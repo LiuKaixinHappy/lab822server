@@ -1,7 +1,7 @@
-from algorithms_base.no_process import NoProcHandler
-from algorithms_segmentation.adaptive_threshold import AdaptiveThresholdHandler
-from algorithms_segmentation.auto_threshold import AutoThresholdHandler
-from algorithms_segmentation.manual_threshold import ManualThresholdHandler
+from img_algorithms.algorithms_base.no_process import NoProcHandler
+from img_algorithms.algorithms_segmentation import AdaptiveThresholdHandler
+from img_algorithms.algorithms_segmentation.auto_threshold import AutoThresholdHandler
+from img_algorithms.algorithms_segmentation.manual_threshold import ManualThresholdHandler
 
 
 def process(code, params, image):

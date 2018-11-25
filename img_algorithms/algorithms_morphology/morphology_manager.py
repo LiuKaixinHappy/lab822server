@@ -1,7 +1,7 @@
-from algorithms_base.no_process import NoProcHandler
-from algorithms_morphology.dilate import DilateHandler
-from algorithms_morphology.erode import ErodeHandler
-from algorithms_morphology.morph_operations_cal import MorphOperationsCalHandler
+from img_algorithms.algorithms_base.no_process import NoProcHandler
+from img_algorithms.algorithms_morphology.dilate import DilateHandler
+from img_algorithms.algorithms_morphology import ErodeHandler
+from img_algorithms.algorithms_morphology import MorphOperationsCalHandler
 
 
 def process(code, params, image):

@@ -1,6 +1,6 @@
-from algorithms_base.no_process import NoProcHandler
-from algorithms_corner.harris_corner import HarrisCornerHandler
-from algorithms_corner.r_j_corner import RJCornerHandler
+from img_algorithms.algorithms_base.no_process import NoProcHandler
+from img_algorithms.algorithms_corner import HarrisCornerHandler
+from img_algorithms.algorithms_corner import RJCornerHandler
 
 
 def process(code, params, image):
