@@ -5,7 +5,7 @@ from img_algorithms.algorithms_base import Handler
 from myenums.proc_code_enum import ProcCodeEnum
 
 
-def harris_corner(image, block_size, k_size, k, threshold):
+def harris_corner(image, block_size, k_size, k):
     img_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     img_gray = np.float32(img_gray)
 
@@ -13,7 +13,7 @@ def harris_corner(image, block_size, k_size, k, threshold):
 
     dst = cv2.dilate(dst, None)
 
-    image[dst > threshold * dst.max()] = [255, 0, 0]
+    image[dst > 0.01 * dst.max()] = [255, 0, 0]
 
     return image
 
@@ -24,7 +24,6 @@ class HarrisCornerHandler(Handler):
             return harris_corner(image,
                                  int(params['blockSize']),
                                  int(params['kSize']),
-                                 float(params['k']),
-                                 float(params['threshold']))
+                                 float(params['k']))
         else:
             return self._to_next.handle(code, params, image)
