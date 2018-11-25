@@ -5,6 +5,10 @@ from img_algorithms.algorithms_base import Handler
 from myenums.proc_code_enum import ProcCodeEnum
 
 
+def get_cosine(a, b):
+    return a.dot(b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+
 def get_interval(arr, lower_bound, upper_bound):
     if lower_bound > upper_bound or (lower_bound < 0 < upper_bound):
         if isinstance(arr, list):
