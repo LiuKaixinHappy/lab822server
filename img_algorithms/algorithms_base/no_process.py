@@ -1,5 +1,5 @@
 # coding=utf-8
-from img_algorithms.algorithms_base.handler import Handler
+from img_algorithms.algorithms_base import Handler
 
 
 class NoProcHandler(Handler):
